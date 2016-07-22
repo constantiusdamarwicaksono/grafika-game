@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Keep it Clean</title>
+	<style type="text/css">
+	 #myCanvas {
+        border: 1px solid #222222;
+        margin-top: 20px;
+    }
+    body{
+    	background-color: black;
+    	text-align: center;
+    }
+    </style>
+    <link rel="icon" href="logo.png" type="image/x-icon" />
+</head>
+<body>
+	<canvas id = "myCanvas" width = "800" height = "600"></canvas>
+	<script type="text/javascript">
+		var canvas = document.getElementById('myCanvas');
+		var context = canvas.getContext('2d');
+		msx=0;
+		msy=0;
+		var click = new Audio("click2.mp3");
+		clickplayed=false;
+		var bg = new Image();
+		bg.src="bgAbout.png";
+		bg.onload=function(){
+			context.drawImage(bg,0,0);
+		}
+
+		window.addEventListener("mousemove",function(e){
+			var rect = canvas.getBoundingClientRect();
+		    msx = e.pageX - rect.left;
+		    msy = e.pageY - rect.top;
+			if(msx>64&&msx<152&&msy>37&&msy<81){
+				canvas.style.cursor="pointer";
+				if(!clickplayed){
+		    		click.play();
+		    		console.log("hey");
+		    		clickplayed=true;
+		    	}
+			}else{
+				canvas.style.cursor="default";
+				clickplayed=false;
+			}
+		});
+
+		window.addEventListener("mousedown",function(e){
+			var rect = canvas.getBoundingClientRect();
+		    msx = e.pageX - rect.left;
+		    msy = e.pageY - rect.top;
+			if(msx>64&&msx<152&&msy>37&&msy<81){
+				window.location.href="index.html";
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Keep it Clean</title>
+	<style type="text/css">
+	 #myCanvas {
+        border: 2px solid #000000;
+        margin-top: 20px;
+    }
+    body{
+    	background-color: black;
+    	text-align: center;
+    } 
+    </style>
+    <link rel="icon" href="logo.png" type="image/x-icon" />
+</head>
+
+<body>
+	<canvas id = "myCanvas" width = "800" height = "600"></canvas>
+	<script type="text/javascript">
+		var canvas = document.getElementById('myCanvas');
+		var context = canvas.getContext('2d');
+		bgLoaded =false;
+		statusImageLoaded = false;
+		buttonTryAgainLoaded = false;
+		buttonTryAgainHoverLoaded=false;
+		audioPlayed=false;
+		gameStatus = sessionStorage.getItem("status");
+		gameScore = sessionStorage.getItem("lastScore");
+		if(gameScore==null){
+			gameScore=0;
+		}
+		context.fillStyle="#000000";
+		context.font="60px Arial";
+		var bgEnd = new Image();
+		bgEnd.src = "bgEnd.png";
+		bgEnd.onload=function(){
+			bgLoaded=true;
+		};
+		var audio;
+		var statusImage = new Image();
+		if(gameStatus=="win"){
+			statusImage.src ="win.png";
+			audio = new Audio("menang.mp3");
+		}else if(gameStatus=="lose"){
+			statusImage.src="lose.png";
+			audio = new Audio("kalah.mp3");
+
+		}
+
+		statusImage.onload=function(){
+			statusImageLoaded=true;
+		}
+
+		var buttonTryAgain = new Image();
+		buttonTryAgain.src="tryAgain.png";
+		buttonTryAgain.onload=function(){
+			buttonTryAgainLoaded=true;
+		}
+		button=buttonTryAgain;
+		var buttonTryAgainHover = new Image();
+		buttonTryAgainHover.src="tryAgainHover.png";
+		buttonTryAgainHover.onload=function(){
+			buttonTryAgainHoverLoaded=true;
+		}
+
+		window.addEventListener("mousemove",function(e){
+			var rect = canvas.getBoundingClientRect();
+		    msx = e.pageX - rect.left;
+		    msy = e.pageY - rect.top;
+		    if(msx>20&&msx<251&&msy>20&&msy<103){
+		    	canvas.style.cursor="pointer";
+		    	button=buttonTryAgainHover;
+		    }else{
+		    	canvas.style.cursor="default";
+		    	button=buttonTryAgain;
+		    }
+		});
+
+		window.addEventListener("mousedown",function(e){
+			var rect = canvas.getBoundingClientRect();
+		    msx = e.pageX - rect.left;
+		    msy = e.pageY - rect.top;
+		    if(msx>20&&msx<251&&msy>20&&msy<103){
+		    	window.location.href="game.html";
+		    }
+		});
+
+		function drawAll(){
+			if(buttonTryAgainLoaded&&buttonTryAgainHoverLoaded&&statusImageLoaded&&bgLoaded){
+				if(!audioPlayed){
+					audio.play();
+					audioPlayed=true;	
+				}
+				context.drawImage(bgEnd,0,0);
+				context.drawImage(statusImage,0,0);
+				context.drawImage(button,20,20);
+				context.fillText(gameScore,645,110);
+			}
+		}
+
+		setInterval(drawAll,10);
+	</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+KEEP IT CLEAN
+
+Anggota Kelompok
+Albertus Indra Wirawan 71120056
+Constantius Damar Wicaksono 71120125
+Bima Ifa Ristiyandi 71120127
+Yohanes Baptista Ago Patria 71120135
+Winni Indra Wijaya 71120143
+Agita Novero Sabatanus 71120145
+
+Deskripsi Game
+Keep it clean merupakan sebuah game yang bertujuan untuk mengingatkan akan pentingnya kebersihan
+Pemain harus dapat memasukkan kendaraan yang kotor ke dalam tempat cuci masing-masing sesuai dengan jenisnya
+Apabila kendaraan masuk ke dalam tempat cuci yang tidak sesuai atau menabrak tembok, maka skor akan berkurang.
+Pemain dikatakan menang apabila dapat memenuhi clean meter, dan kalah apabila skor dibawah nol (minus)

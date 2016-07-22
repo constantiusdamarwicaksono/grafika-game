@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Keep it Clean</title>
+	<style type="text/css">
+	 #myCanvas {
+        border: 2px solid #000000;
+        margin-top: 20px;
+    }
+    body{
+    	background-color: black;
+    	text-align: center;
+    }
+    </style>
+    <link rel="icon" href="logo.png" type="image/x-icon" />
+</head>
+
+<body>
+	<canvas id = "myCanvas" width = "800" height = "600"></canvas>
+	<script type="text/javascript">
+		var canvas = document.getElementById('myCanvas');
+		var context = canvas.getContext('2d');
+		bgLoaded =false;
+		playLoaded = false;
+		aboutLoaded =false;
+		playzoom =1;
+		aboutzoom=1;
+		msx =0;
+		msy=0;
+
+		var click = new Audio("click.mp3");
+		var click2 = new Audio("click2.mp3");
+
+		var bgStart = new Image();
+		bgStart.src = "Menu.png";
+		bgStart.onload=function(){
+			bgLoaded=true;
+		};
+
+		var playButton = new Image();
+		playButton.src="playNow.png"
+		playButton.onload = function(){
+			playLoaded=true;
+		}
+
+		var aboutButton = new Image();
+		aboutButton.src="about.png"
+		aboutButton.onload = function(){
+			playLoaded=true;
+		}
+
+		soundplayed=false;
+		clickplayed=false;
+		click2played=false;
+		window.addEventListener("mousemove",function(e){
+			var rect = canvas.getBoundingClientRect();
+		    msx = e.pageX - rect.left;
+		    msy = e.pageY - rect.top;
+		    if((msx>530&&msx<686&&msy>470&&msy<511)||(msx>469&&msx<749&&msy>350&&msy<420)){
+		    	canvas.style.cursor="pointer";
+		    	
+		    }else{
+		    	canvas.style.cursor="default";
+		    }
+		    if((msx>530&&msx<686&&msy>470&&msy<511)){
+		    		aboutzoom=1.2;
+		    		if(!click2played){
+		    		click2.play();
+		    		click2played=true;
+		    		}
+		    		
+		    }else{
+		    		aboutzoom=1;
+		    		click2played=false;
+		    		
+		   	}
+
+		   	if(msx>469&&msx<749&&msy>350&&msy<420){
+		    		playzoom=1.2;
+		    		if(!clickplayed){
+		    		click.play();
+		    		clickplayed=true;
+		    		}
+		    }else{
+		    		playzoom=1;
+		    		clickplayed=false;
+		    }
+		});
+
+		window.addEventListener("mousedown",function(e){
+			var rect = canvas.getBoundingClientRect();
+		    msx = e.pageX - rect.left;
+		    msy = e.pageY - rect.top;
+		    if((msx>469&&msx<749&&msy>353&&msy<418)){
+		    	window.location.href="game.html";
+		    }
+		    if((msx>530&&msx<686&&msy>470&&msy<511)){
+		    	window.location.href="about.html";
+		    }
+
+		});
+
+		var opening  = new Audio("opening.mp3");
+
+		function drawAll(){
+			if(bgLoaded&&playLoaded&&aboutButton){
+				if(!soundplayed){
+
+				opening.play();
+				soundplayed=true;	
+				}
+				context.drawImage(bgStart,0,0);
+				context.drawImage(playButton,0,0,285,70,465-(((playzoom-1)/2)*285),350-(((playzoom-1)/2)*70),playzoom*285,playzoom*70);
+				context.drawImage(aboutButton,0,0,158,39,530-(((aboutzoom-1)/2)*158),470-(((aboutzoom-1)/2)*39),158*aboutzoom,39*aboutzoom);
+				context.fillStyle ="#FFFFFF";
+				//context.fillText(msx+" "+msy,10,20);
+			}
+		}
+
+		setInterval(drawAll,10);
+	</script>
+</body>
+</html>
